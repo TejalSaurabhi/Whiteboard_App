@@ -4,6 +4,7 @@
   "private": true,
   "author": "Your Name <your.email@example.com>",
   "description": "A modern collaborative whiteboard application with real-time drawing and dark theme UI",
+  "homepage": ".",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",

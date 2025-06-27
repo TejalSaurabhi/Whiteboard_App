@@ -71,7 +71,8 @@ function Board({ id }) {
     const fetchCanvasData = async () => {
       if (id && token) {
         try {
-          const response = await axios.get(`https://api-whiteboard-az.onrender.com/api/canvas/load/${id}`, {
+          const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+          const response = await axios.get(`${API_URL}/api/canvas/load/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setCanvasId(id); // Set the current canvas ID

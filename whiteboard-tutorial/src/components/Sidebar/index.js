@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import boardContext from '../../store/board-context';
 import { useParams } from 'react-router-dom';
 
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+
 
 const Sidebar = () => {
   const [canvases, setCanvases] = useState([]);
@@ -23,7 +25,7 @@ const Sidebar = () => {
 
   const handleCreateCanvas = useCallback(async () => {
     try {
-      const response = await axios.post('https://api-whiteboard-az.onrender.com/api/canvas/create', {}, {
+      const response = await axios.post(`${API_URL}/api/canvas/create`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log(response.data)  
@@ -38,7 +40,7 @@ const Sidebar = () => {
 
   const fetchCanvases = useCallback(async () => {
     try {
-      const response = await axios.get('https://api-whiteboard-az.onrender.com/api/canvas/list', {
+      const response = await axios.get(`${API_URL}/api/canvas/list`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setCanvases(response.data);
@@ -63,7 +65,7 @@ const Sidebar = () => {
 
   const handleDeleteCanvas = useCallback(async (canvasIdToDelete) => {
     try {
-      await axios.delete(`https://api-whiteboard-az.onrender.com/api/canvas/delete/${canvasIdToDelete}`, {
+      await axios.delete(`${API_URL}/api/canvas/delete/${canvasIdToDelete}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchCanvases();
@@ -104,7 +106,7 @@ const Sidebar = () => {
       setSuccess(""); // Clear previous success message
 
       const response = await axios.put(
-        `https://api-whiteboard-az.onrender.com/api/canvas/share/${canvasId}`,
+        `${API_URL}/api/canvas/share/${canvasId}`,
         { email },
         {
           headers: { Authorization: `Bearer ${token}` },

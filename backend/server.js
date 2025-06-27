@@ -7,7 +7,7 @@ const { Server } = require("socket.io");
 const http = require("http");
 const Canvas = require("./models/canvasModel");
 const jwt = require("jsonwebtoken");
-const SECRET_KEY = "your_secret_key";
+const SECRET_KEY = process.env.JWT_SECRET || "your_secret_key";
 
 
 const userRoutes = require("./routes/userRoutes");
@@ -16,7 +16,14 @@ const canvasRoutes = require("./routes/canvasRoutes");
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: [
+    "http://localhost:3000",
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+}));
 app.use(express.json());
 
 // Routes
@@ -29,8 +36,13 @@ connectToDB();
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-      origin: ["http://localhost:3000", "https://whiteboard-tutorial-eight.vercel.app"], 
-      methods: ["GET", "POST"],
+      origin: [
+        "http://localhost:3000", 
+        "https://whiteboard-tutorial-eight.vercel.app",
+        process.env.FRONTEND_URL
+      ].filter(Boolean), 
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      credentials: true,
     },
   });
 
@@ -104,4 +116,4 @@ io.on("connection", (socket) => {
       });
     });
 
-server.listen(5000, () => console.log("Server running on port 5000"));
+server.listen(process.env.PORT || 5000, () => console.log(`Server running on port ${process.env.PORT || 5000}`));

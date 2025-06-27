@@ -15,7 +15,8 @@ const Register = () => {
       return;
     }
     try {
-      const response = await fetch('https://api-whiteboard-az.onrender.com/api/users/register', {
+      const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+      const response = await fetch(`${API_URL}/api/users/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
