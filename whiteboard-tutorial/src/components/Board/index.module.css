@@ -1,0 +1,27 @@
+.textElementBox {
+  position: fixed;
+  border: none;
+  background: rgba(26, 26, 36, 0.9);
+  backdrop-filter: blur(10px);
+  resize: none;
+  outline: none;
+  padding: 8px 12px;
+  margin: 0;
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  font-size: inherit;
+  font-family: 'Caveat', cursive;
+  color: var(--text-primary);
+  line-height: inherit;
+  border-radius: 8px;
+  border: 1px solid rgba(58, 58, 74, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+.textElementBox:focus {
+  background: rgba(26, 26, 36, 0.95);
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(0, 245, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.3);
+}
